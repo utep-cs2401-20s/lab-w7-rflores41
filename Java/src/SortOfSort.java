@@ -1,19 +1,42 @@
 public class SortOfSort {
-    public static void sortOfSort(int [] array){
+    public static void SortOfSort(int [] array){
         int swapMe = 0;     //holds the current largest item before overriding the array
-        int SaveMe;         //takes the data before overriding the array
+        int SaveMe = 0;     //takes the data before overriding the array
         int index = 0;      //holds the index that the largest item is taken from
-        int largest = 0;    //counter for back of array
-        int Smallest = 0;   //counter for front of array
+        int lCounter = 0;   //counter for left side of array
+        int rCounter = 0;   //counter for right side of array
 
-        for(int i = 0; i < array.length - largest; i++){  //find the largest item in the array
-            if((array[i]) > swapMe){
+        while(lCounter + rCounter != array.length){
+            sortRight(array, rCounter, lCounter, swapMe, index, SaveMe);
+            sortRight(array, rCounter, lCounter, swapMe, index, SaveMe);
+            sortLeft(array, rCounter, lCounter, swapMe, index, SaveMe);
+            sortLeft(array, rCounter, lCounter, swapMe, index, SaveMe);
+        }
+    }
+
+    public static void sortRight(int [] array, int rCounter, int lCounter, int swapMe, int index, int SaveMe){
+        for(int i = 0 + lCounter; i < array.length - rCounter; i++){
+            if((array[i])> swapMe){
                 swapMe = array[i];
                 index = i;
             }
         }
-        SaveMe = array[array.length];
-        array[array.length] = swapMe;
+        SaveMe = array[array.length - rCounter];
+        array[array.length - rCounter] = swapMe;
         array[index] = SaveMe;
+        rCounter++;
+    }
+
+    public static void sortLeft(int [] array, int rCounter, int lCounter, int swapMe, int index, int SaveMe){
+        for(int i = 0 + lCounter; i < array.length - rCounter; i++){
+            if((array[i] > swapMe)){
+                swapMe = array[i];
+                index = i;
+            }
+        }
+        SaveMe = array[lCounter];
+        array[lCounter] =  swapMe;
+        array[index] = SaveMe;
+        lCounter++;
     }
 }
